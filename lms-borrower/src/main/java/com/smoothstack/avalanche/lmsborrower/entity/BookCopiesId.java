@@ -8,10 +8,8 @@ import javax.persistence.JoinColumn;
 @Embeddable
 public class BookCopiesId implements Serializable{
 	
-	@JoinColumn(name = "book_id")
 	private Long bookId;
 	
-	@JoinColumn(name = "branch_id")
 	private Long branchId;
 	/*
 	 * CONSTRUCTOR
