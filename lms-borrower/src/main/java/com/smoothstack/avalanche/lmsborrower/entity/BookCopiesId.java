@@ -18,7 +18,6 @@ public class BookCopiesId implements Serializable{
 		
 	}
 	public BookCopiesId(Long bookId, Long branchId) {
-		super();
 		this.bookId = bookId;
 		this.branchId = branchId;
 	}
