@@ -44,7 +44,7 @@ public class BorrowerService{
 	
 
 	public void updateBookLoans(BookLoans loan) throws ClassNotFoundException, SQLException, IllegalArgumentException {
-		Optional<BookLoans> searchLoan = loansDAO.findByBookLoanId(loan.getBorrower().getCardNo(), loan.getBook().getId(), loan.getBranch().getId());
+		Optional<BookLoans> searchLoan = loansDAO.findByBookLoanId(loan.getBookLoansId().getCardNo(), loan.getBookLoansId().getBookId(), loan.getBookLoansId().getBranchId());
 		searchLoan.orElseThrow(() -> new SQLException("Loan not found:" + loan.toString()));
 		loansDAO.save(loan);
 	}
@@ -78,8 +78,12 @@ public class BorrowerService{
     }
 
 	public void createLoan(BookLoans loan) throws ClassNotFoundException, SQLException, IllegalArgumentException {
-		Optional<BookLoans> searchLoan = loansDAO.findByBookLoanId(loan.getBorrower().getCardNo(), loan.getBook().getId(), loan.getBranch().getId());
-		searchLoan.orElseThrow(() -> new IllegalArgumentException("Loan already exists:" + loan.toString()));
+		Optional<BookLoans> searchLoan = loansDAO.findByBookLoanId(loan.getBookLoansId().getCardNo(), loan.getBookLoansId().getBookId(), loan.getBookLoansId().getBranchId());
+		if(searchLoan.isPresent())
+		{
+			throw new IllegalArgumentException("Loans already exist with Id: BookId:" + loan.getBookLoansId().getBookId() +" BranchId:" + loan.getBookLoansId().getBranchId() 
+					+ " CardNo:"+ loan.getBookLoansId().getCardNo());
+		}
 		loansDAO.save(loan);
 	}
 }
