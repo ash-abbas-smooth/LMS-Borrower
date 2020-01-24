@@ -1,2 +1,1 @@
-# LMS-Borrower
-Borrower Service
+# lms-spring-boot
