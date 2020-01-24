@@ -18,6 +18,8 @@ import com.smoothstack.avalanche.lmsborrower.entity.BookCopies;
 import com.smoothstack.avalanche.lmsborrower.entity.BookLoans;
 import com.smoothstack.avalanche.lmsborrower.entity.Branch;
 
+import javassist.NotFoundException;
+
 @Service
 @Transactional
 public class BorrowerService{
@@ -43,9 +45,9 @@ public class BorrowerService{
 	}
 	
 
-	public void updateBookLoans(BookLoans loan) throws ClassNotFoundException, SQLException, IllegalArgumentException {
+	public void updateBookLoans(BookLoans loan) throws ClassNotFoundException, SQLException, NotFoundException {
 		Optional<BookLoans> searchLoan = loansDAO.findByBookLoanId(loan.getBookLoansId().getCardNo(), loan.getBookLoansId().getBookId(), loan.getBookLoansId().getBranchId());
-		searchLoan.orElseThrow(() -> new SQLException("Loan not found:" + loan.toString()));
+		searchLoan.orElseThrow(() -> new NotFoundException("Loan not found:" + loan.toString()));
 		loansDAO.save(loan);
 	}
 
@@ -71,9 +73,9 @@ public class BorrowerService{
 		return searchCopies == null? Collections.EMPTY_LIST : searchCopies;
 	}
 	
-    public void updateBookCopies(BookCopies copies) throws ClassNotFoundException, SQLException, IllegalArgumentException {
+    public void updateBookCopies(BookCopies copies) throws ClassNotFoundException, SQLException, NotFoundException {
     	Optional<BookCopies> searchBookCopies = copiesDAO.findBookCopiesById(copies.getBook().getId(), copies.getBranch().getId());
-    	searchBookCopies.orElseThrow(() -> new IllegalArgumentException("Book Copies Not Found"));
+    	searchBookCopies.orElseThrow(() -> new NotFoundException("Book Copies Not Found"));
     	copiesDAO.save(copies);
     }
 
