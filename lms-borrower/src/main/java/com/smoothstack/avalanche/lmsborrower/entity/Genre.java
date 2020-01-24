@@ -28,9 +28,9 @@ public class Genre {
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
-			name = "tbl_book_authors",
-			joinColumns = {@JoinColumn(name = "id")},
-			inverseJoinColumns = { @JoinColumn(name = "id")}
+			name = "tbl_book_genres",
+			joinColumns = {@JoinColumn(name = "genre_id")},
+			inverseJoinColumns = { @JoinColumn(name = "book_id")}
 			)
 	private List<Book> books;
 	
@@ -61,9 +61,6 @@ public class Genre {
 		this.name = name;
 	}
 	
-	/*
-	 * EQUALS / HASHCODE
-	 */
 	/*
 	 * Equals/ HashCode
 	 */

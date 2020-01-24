@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
@@ -18,16 +19,20 @@ public class BookCopies {
 	@EmbeddedId
 	private BookCopiesId bookCopiesId;
 	
+	
 	@MapsId("bookId")
 	@ManyToOne
+	@JoinColumn(name = "book_id")
 	private Book book;
 	
 	@MapsId("branchId")
 	@ManyToOne
+	@JoinColumn(name = "branch_id")
 	private Branch branch;
 	
+	
 	@Column(name = "no_of_copies")
-	private int noOfCopies;
+	private Long noOfCopies;
 
 	/*
 	 * CONSTRUCTOR
@@ -37,13 +42,14 @@ public class BookCopies {
 		
 	}
 
-	public BookCopies(BookCopiesId bookCopiesId, int noOfCopies) {
+	public BookCopies(BookCopiesId bookCopiesId, Long noOfCopies) {
 		this.bookCopiesId = bookCopiesId;
 		this.noOfCopies = noOfCopies;
 	}
 	/*
 	 * GETTERS / SETTERS
 	 */
+	
 	public BookCopiesId getBookCopiesId() {
 		return bookCopiesId;
 	}
@@ -52,6 +58,7 @@ public class BookCopies {
 		this.bookCopiesId = bookCopiesId;
 	}
 
+	
 	public Book getBook() {
 		return book;
 	}
@@ -67,12 +74,12 @@ public class BookCopies {
 	public void setBranch(Branch branch) {
 		this.branch = branch;
 	}
-
-	public int getNoOfCopies() {
+	
+	public Long getNoOfCopies() {
 		return noOfCopies;
 	}
 
-	public void setNoOfCopies(int noOfCopies) {
+	public void setNoOfCopies(Long noOfCopies) {
 		this.noOfCopies = noOfCopies;
 	}
 	/*

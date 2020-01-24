@@ -7,13 +7,14 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "tbl_book_copies")
+@Table(name = "tbl_book_loans")
 public class BookLoans {
 
 	@EmbeddedId
@@ -21,14 +22,17 @@ public class BookLoans {
 	
 	@MapsId("bookId")
 	@ManyToOne
+	@JoinColumn(name = "book_id")
 	private Book book;
 	
 	@MapsId("branchId")
 	@ManyToOne
+	@JoinColumn(name = "branch_id")
 	private Branch branch;
 	
 	@MapsId("cardNo")
 	@ManyToOne
+	@JoinColumn(name = "card_no")
 	private Borrower borrower;
 	
 	@Column(name = "date_out")

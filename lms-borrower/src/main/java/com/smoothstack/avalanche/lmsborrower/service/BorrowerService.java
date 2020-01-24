@@ -19,6 +19,7 @@ import com.smoothstack.avalanche.lmsborrower.entity.BookLoans;
 import com.smoothstack.avalanche.lmsborrower.entity.Branch;
 
 @Service
+@Transactional
 public class BorrowerService{
 	
 	@Autowired
@@ -36,8 +37,7 @@ public class BorrowerService{
 	/*
 	 * Functions for returning a book
 	 */
-	@Transactional
-	public List<BookLoans> readLoansByCardNo(int cardNo) throws ClassNotFoundException, SQLException {
+	public List<BookLoans> readLoansByCardNo(Long cardNo) throws ClassNotFoundException, SQLException {
 		List<BookLoans> searchLoans = loansDAO.findByCardNo(cardNo);
 		return searchLoans == null? Collections.EMPTY_LIST : searchLoans;
 	}
@@ -64,7 +64,7 @@ public class BorrowerService{
 		return searchBranches == null? Collections.EMPTY_LIST : searchBranches;
 	}
 
-	public List<BookCopies> readBookCopiesByBranch(int branchID) throws ClassNotFoundException, SQLException, IllegalArgumentException {
+	public List<BookCopies> readBookCopiesByBranch(Long branchID) throws ClassNotFoundException, SQLException, IllegalArgumentException {
 		if(branchID == 0)
 			throw new IllegalArgumentException("Cannot be 0");
 		List<BookCopies> searchCopies = copiesDAO.findBookCopiesByBranch(branchID);
@@ -72,13 +72,13 @@ public class BorrowerService{
 	}
 	
     public void updateBookCopies(BookCopies copies) throws ClassNotFoundException, SQLException, IllegalArgumentException {
-    	Optional<BookCopies> searchBookCopies = copiesDAO.findBookCopiesById(copies.getId().getBook().getBookId(), copies.getId().getBranch().getBranchId());
+    	Optional<BookCopies> searchBookCopies = copiesDAO.findBookCopiesById(copies.getBook().getId(), copies.getBranch().getId());
     	searchBookCopies.orElseThrow(() -> new IllegalArgumentException("Book Copies Not Found"));
     	copiesDAO.save(copies);
     }
 
 	public void createLoan(BookLoans loan) throws ClassNotFoundException, SQLException, IllegalArgumentException {
-		Optional<BookLoans> searchLoan = loansDAO.findByBookLoanId(loan.getId().getBorrower().getCardNo(), loan.getId().getBook().getBookId(), loan.getId().getBranch().getBranchId());
+		Optional<BookLoans> searchLoan = loansDAO.findByBookLoanId(loan.getBorrower().getCardNo(), loan.getBook().getId(), loan.getBranch().getId());
 		searchLoan.orElseThrow(() -> new IllegalArgumentException("Loan already exists:" + loan.toString()));
 		loansDAO.save(loan);
 	}
