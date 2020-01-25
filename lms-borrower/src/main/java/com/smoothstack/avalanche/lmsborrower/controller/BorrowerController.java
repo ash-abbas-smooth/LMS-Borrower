@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smoothstack.avalanche.lms.entity.BookCopies;
-import com.smoothstack.avalanche.lms.entity.BookLoans;
-import com.smoothstack.avalanche.lms.entity.Branch;
-import com.smoothstack.avalanche.lms.svc.BorrowerSVC;
+import com.smoothstack.avalanche.lmsborrower.entity.BookCopies;
+import com.smoothstack.avalanche.lmsborrower.entity.BookLoans;
+import com.smoothstack.avalanche.lmsborrower.entity.Branch;
+import com.smoothstack.avalanche.lmsborrower.service.BorrowerService;
+
+import javassist.NotFoundException;
 
 @RestController
 public class BorrowerController {
@@ -28,7 +30,7 @@ public class BorrowerController {
 	 */
 	
 	@GetMapping(path = "/lms/borrower/bookloans/{cardNo}")
-	public List<BookLoans> readLoansByCardNo(@PathVariable("cardNo") int cardNo) throws ClassNotFoundException, SQLException
+	public List<BookLoans> readLoansByCardNo(@PathVariable("cardNo") Long cardNo) throws ClassNotFoundException, SQLException
 	{
 		List<BookLoans> searchLoans = borrowerService.readLoansByCardNo(cardNo);
 		return searchLoans;
@@ -45,7 +47,7 @@ public class BorrowerController {
 	}
 	
 	@PutMapping(path = "/lms/borrower/bookloans:bookloans")
-	public ResponseEntity<BookLoans> updateLoan(@RequestBody BookLoans loan) throws ClassNotFoundException, SQLException {
+	public ResponseEntity<BookLoans> updateLoan(@RequestBody BookLoans loan) throws ClassNotFoundException, SQLException, NotFoundException {
 		try{
 			borrowerService.updateBookLoans(loan);
 		}
@@ -72,14 +74,14 @@ public class BorrowerController {
 	 * Function for Book Copies
 	 */
 	@GetMapping(path = "/lms/borrower/bookcopies/{branchId}")
-	public List<BookCopies> readBookCopiesByBranch(@PathVariable("branchId") int branchId) throws ClassNotFoundException, IllegalArgumentException, SQLException
+	public List<BookCopies> readBookCopiesByBranch(@PathVariable("branchId") Long branchId) throws ClassNotFoundException, IllegalArgumentException, SQLException
 	{
 		List<BookCopies> searchBookCopies = borrowerService.readBookCopiesByBranch(branchId);
 		return searchBookCopies;
 	}
 
 	@PutMapping(path = "/lms/borrower/bookcopies:bookcopies")
-	public ResponseEntity<BookCopies> updateBookCopy(@RequestBody BookCopies bc) throws ClassNotFoundException, SQLException
+	public ResponseEntity<BookCopies> updateBookCopy(@RequestBody BookCopies bc) throws ClassNotFoundException, SQLException, NotFoundException
 	{
 		try {
 		borrowerService.updateBookCopies(bc);
