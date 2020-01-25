@@ -2,6 +2,7 @@
 /*
 
 !src
-!src/main/resources/*
+!data.sql
+!schema.sql
 !pom.xml
 !.gitignore
