@@ -2,6 +2,6 @@
 /*
 
 !src
-!src/main/resources
+!src/main/resources/*
 !pom.xml
 !.gitignore
