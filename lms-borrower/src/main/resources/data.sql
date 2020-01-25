@@ -24,24 +24,24 @@ VALUES
 INSERT INTO `tbl_borrower`
 VALUES
 (1, 'Alpha', 'ADDRESS1', '1234567'),
-(1, 'Bravo', 'ADDRESS12', '11111111'),
-(1, 'Charlie', 'ADDRESS13', '22222222'),
-(1, 'Delta', 'ADDRESS14', '1233333333'),
-(1, 'Echo', 'ADDRESS15', '123444444'),
-(1, 'Foxtrot', 'ADDRESS16', '666666661'),
-(1, 'Golf', 'ADDRESS17', '6556565656'),
-(1, 'Hota', 'ADDRESS18', '1323123213'),
-(1, 'Indian', 'ADDRESS19', '15525252'),
-(1, 'Juliett', 'ADDRESS11', '123421312'),
-(1, 'Kilo', 'ADDRESS21', '1234123567'),
-(1, 'Lima', 'ADDRESS133', '123455237'),
-(1, 'Mike', 'ADDRESS14', '1234545567'),
-(1, 'November', 'ADDRESS15', '12323124567'),
-(1, 'Oscar', 'ADDRESS166', '123453267'),
-(1, 'Papa', 'ADDRESS12', '1234532367'),
-(1, 'Quebec', 'ADDRESS111', '12345323267'),
-(1, 'Romeo', 'ADDRESS123', '123453267'),
-(1, 'Sierra', 'ADDRESS14', '123456327');
+(2, 'Bravo', 'ADDRESS12', '11111111'),
+(3, 'Charlie', 'ADDRESS13', '22222222'),
+(4, 'Delta', 'ADDRESS14', '1233333333'),
+(5, 'Echo', 'ADDRESS15', '123444444'),
+(6, 'Foxtrot', 'ADDRESS16', '666666661'),
+(7, 'Golf', 'ADDRESS17', '6556565656'),
+(8, 'Hota', 'ADDRESS18', '1323123213'),
+(9, 'Indian', 'ADDRESS19', '15525252'),
+(10, 'Juliett', 'ADDRESS11', '123421312'),
+(11, 'Kilo', 'ADDRESS21', '1234123567'),
+(12, 'Lima', 'ADDRESS133', '123455237'),
+(13, 'Mike', 'ADDRESS14', '1234545567'),
+(14, 'November', 'ADDRESS15', '12323124567'),
+(15, 'Oscar', 'ADDRESS166', '123453267'),
+(16, 'Papa', 'ADDRESS12', '1234532367'),
+(17, 'Quebec', 'ADDRESS111', '12345323267'),
+(18, 'Romeo', 'ADDRESS123', '123453267'),
+(19, 'Sierra', 'ADDRESS14', '123456327');
 
 INSERT INTO `tbl_genre`
 VALUES

@@ -14,6 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "tbl_book")
 public class Book {
@@ -27,10 +30,12 @@ public class Book {
 	
 	@ManyToMany(mappedBy = "books", 
 			cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Author> authors;
 	
 	@ManyToMany(mappedBy = "books", 
 			cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Genre> genres;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -39,11 +44,9 @@ public class Book {
 	
 	public Book() {}
 
-	public Book(Long id, String title, List<Author> authors, List<Genre> genres, Publisher publisher) {
+	public Book(Long id, String title,Publisher publisher) {
 		this.id = id;
 		this.title = title;
-		this.authors = authors;
-		this.genres = genres;
 		this.publisher = publisher;
 	}
 
