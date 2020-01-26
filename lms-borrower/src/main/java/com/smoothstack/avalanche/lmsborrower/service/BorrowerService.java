@@ -39,10 +39,7 @@ public class BorrowerService{
 	/*
 	 * Functions for returning a book
 	 */
-	public List<BookLoans> readLoansByCardNo(Long cardNo) throws ClassNotFoundException, SQLException, NotFoundException {
-		if(cardNo == 0) {
-			throw new IllegalArgumentException("Cannot be 0");
-		}
+	public List<BookLoans> readLoansByCardNo(Long cardNo) throws NotFoundException {
 		List<BookLoans> searchLoans = loansDAO.findByCardNo(cardNo);
 		if(searchLoans.size() <= 0) {
 			throw new NotFoundException("Loans not found from card_no: " + cardNo);
@@ -51,7 +48,7 @@ public class BorrowerService{
 	}
 	
 
-	public void updateBookLoans(BookLoans loan) throws ClassNotFoundException, SQLException, NotFoundException {
+	public void updateBookLoans(BookLoans loan) throws IllegalArgumentException {
 		Optional<BookLoans> searchLoan = loansDAO.findById(loan.getBookLoansId());
 		searchLoan.orElseThrow(() -> new IllegalArgumentException("Loan not found:" + loan.toString()));
 		loansDAO.save(loan);
@@ -67,7 +64,7 @@ public class BorrowerService{
 	/*
 	 * Functions for checking out a book
 	 */
-	public List<Branch> readBranches() throws ClassNotFoundException, SQLException, NotFoundException {
+	public List<Branch> readBranches() throws NotFoundException {
 		List<Branch> searchBranches = branchDAO.findAll();
 		if(searchBranches.size() <= 0) {
 			throw new NotFoundException("Branches not found");
@@ -75,9 +72,7 @@ public class BorrowerService{
 		return searchBranches;
 	}
 
-	public List<BookCopies> readBookCopiesByBranch(Long branchId) throws ClassNotFoundException, SQLException, IllegalArgumentException, NotFoundException {
-		if(branchId == 0)
-			throw new IllegalArgumentException("Cannot be 0");
+	public List<BookCopies> readBookCopiesByBranch(Long branchId) throws NotFoundException {
 		System.out.println("branchId is" + branchId);
 		List<BookCopies> searchCopies = copiesDAO.findBookCopiesByBranchId(branchId);
 		if(searchCopies.size() <= 0) {
@@ -86,13 +81,13 @@ public class BorrowerService{
 		return searchCopies;
 	}
 	
-    public void updateBookCopies(BookCopies copies) throws ClassNotFoundException, SQLException, NotFoundException {
+    public void updateBookCopies(BookCopies copies) throws NotFoundException {
     	Optional<BookCopies> searchBookCopies = copiesDAO.findById(copies.getBookCopiesId());
     	searchBookCopies.orElseThrow(() -> new NotFoundException("Book Copies Not Found"));
     	copiesDAO.save(copies);
     }
 
-	public void createLoan(BookLoans loan) throws ClassNotFoundException, SQLException, IllegalArgumentException {
+	public void createLoan(BookLoans loan) throws IllegalArgumentException {
 		if(loan == null || loan.getBookLoansId().getBookId() == 0 || loan.getBookLoansId().getBranchId() == 0 || loan.getBookLoansId().getCardNo()== 0) {
 			throw new IllegalArgumentException("Inproper Input");
 		}
