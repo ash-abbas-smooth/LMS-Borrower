@@ -3,9 +3,10 @@ package com.smoothstack.avalanche.lmsborrower.controller;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.smoothstack.avalanche.lmsborrower.entity.BookCopies;
 import com.smoothstack.avalanche.lmsborrower.entity.BookLoans;
@@ -31,38 +31,47 @@ public class BorrowerController {
 
 	@Autowired
 	BorrowerService borrowerService;
+	
+	private static final Logger logger = LogManager.getLogger(BorrowerController.class.getName());
 	/*
 	 * Functions for BookLoans
 	 */
 	
 	@GetMapping(path = "/lms/borrower/bookloans/{cardNo}")
 	public ResponseEntity<List<BookLoans>> readLoansByCardNo(@Valid @PathVariable("cardNo") Long cardNo) throws NotFoundException{
+		logger.info("Borrower: " + cardNo + " has logged in to look at Book Loans.");
 		try{
 			List<BookLoans> searchLoans = borrowerService.readLoansByCardNo(cardNo);
 			return new ResponseEntity<List<BookLoans>>(searchLoans, new HttpHeaders(), HttpStatus.OK);
 		} catch(NotFoundException e) {
+			logger.error("Loans not found with card_no: " + cardNo);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Loans not found with card_no: " + cardNo, e);
 		}
 	}
 
 	@PostMapping(path = "/lms/borrower/bookloan")
 	public ResponseEntity<BookLoans> createLoan(@Valid @RequestBody BookLoans loan){
+		logger.info("Book Loans is being created by :" + loan.getBookLoansId().getCardNo() + " with : " + loan.getBookLoansId().getBookId() + " from: " + loan.getBookLoansId().getBranchId());
 		try {
 			borrowerService.createLoan(loan);
 			ResponseEntity<BookLoans> response = new ResponseEntity<BookLoans>(HttpStatus.CREATED);
 			return response;
 		} catch(IllegalArgumentException e) {
+			logger.error("Book loan creation failed: " + e.getMessage());
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage(), e);
 		}
 	}
 	
 	@PutMapping(path = "/lms/borrower/bookloans:bookloans")
 	public ResponseEntity<String> updateLoan(@Valid @RequestBody BookLoans loan) throws ClassNotFoundException, SQLException, NotFoundException {
+		logger.info("Book Loans is being updated by :" + loan.getBookLoansId().getCardNo() + " with : " + loan.getBookLoansId().getBookId() + " from: " + loan.getBookLoansId().getBranchId());
+
 		try{
 			borrowerService.updateBookLoans(loan);
 			ResponseEntity<String> response= new ResponseEntity<String>("Update Book Loans Complete!", HttpStatus.ACCEPTED);
 			return response;
 		} catch(IllegalArgumentException e) {
+			logger.error("Book loan update failed: " + e.getMessage());
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage(), e);
 		}
 	}
@@ -76,6 +85,7 @@ public class BorrowerController {
 			List<Branch> searchBranches = borrowerService.readBranches();
 			return searchBranches;
 		} catch(NotFoundException e) {
+			logger.error(e.getMessage());
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
 		}
 	}
@@ -85,21 +95,25 @@ public class BorrowerController {
 	 */
 	@GetMapping(path = "/lms/borrower/bookcopies/{branchId}")
 	public List<BookCopies> readBookCopiesByBranch(@Valid @PathVariable("branchId") Long branchId) throws ClassNotFoundException, IllegalArgumentException, SQLException, NotFoundException{
+		logger.info("Check Book Copies from: " + branchId);
 		try{
 			List<BookCopies> searchBookCopies = borrowerService.readBookCopiesByBranch(branchId);
 			return searchBookCopies;
 		} catch(NotFoundException e) {
+			logger.error(e.getMessage());
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
 		}
 	}
 
 	@PutMapping(path = "/lms/borrower/bookcopies:bookcopies")
 	public ResponseEntity<String> updateBookCopy(@Valid @RequestBody BookCopies bc) throws ClassNotFoundException, SQLException, NotFoundException{
+		logger.info("Checking out book: " + bc.getBookCopiesId().getBookId() + "from :" + bc.getBookCopiesId().getBranchId());
 		try{
 			borrowerService.updateBookCopies(bc);
 			ResponseEntity<String> response = new ResponseEntity<String>("Update BookCopies complete!", HttpStatus.NO_CONTENT);
 			return response;
 		} catch(NotFoundException e) {
+			logger.error(e.getMessage());
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
 		}
 	}
