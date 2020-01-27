@@ -32,7 +32,7 @@ public class BorrowerController {
 	@Autowired
 	BorrowerService borrowerService;
 	
-	private static final Logger logger = LogManager.getLogger(BorrowerController.class.getName());
+	private static final Logger logger = LogManager.getLogger(BorrowerController.class);
 	/*
 	 * Functions for BookLoans
 	 */
