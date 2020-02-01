@@ -1,4 +1,4 @@
-package com.smoothstack.avalanche.lmsborrower.controller;
+package com.smoothstack.avalanche.lms.borrowermsvc.controller;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.smoothstack.avalanche.lmsborrower.entity.BookCopies;
-import com.smoothstack.avalanche.lmsborrower.entity.BookLoans;
-import com.smoothstack.avalanche.lmsborrower.entity.Branch;
-import com.smoothstack.avalanche.lmsborrower.service.BorrowerService;
+import com.smoothstack.avalanche.lms.borrowermsvc.entity.BookCopies;
+import com.smoothstack.avalanche.lms.borrowermsvc.entity.BookLoans;
+import com.smoothstack.avalanche.lms.borrowermsvc.entity.Branch;
+import com.smoothstack.avalanche.lms.borrowermsvc.service.BorrowerService;
 
 import javassist.NotFoundException;
 
@@ -63,12 +63,12 @@ public class BorrowerController {
 	}
 	
 	@PutMapping(path = "/lms/borrower/bookloans:bookloans")
-	public ResponseEntity<String> updateLoan(@Valid @RequestBody BookLoans loan) throws ClassNotFoundException, SQLException, NotFoundException {
+	public ResponseEntity<BookLoans> updateLoan(@Valid @RequestBody BookLoans loan) throws NotFoundException {
 		logger.info("Book Loans is being updated by :" + loan.getBookLoansId().getCardNo() + " with : " + loan.getBookLoansId().getBookId() + " from: " + loan.getBookLoansId().getBranchId());
 
 		try{
 			borrowerService.updateBookLoans(loan);
-			ResponseEntity<String> response= new ResponseEntity<String>("Update Book Loans Complete!", HttpStatus.ACCEPTED);
+			ResponseEntity<BookLoans> response= new ResponseEntity<BookLoans>(loan, HttpStatus.ACCEPTED);
 			return response;
 		} catch(IllegalArgumentException e) {
 			logger.error("Book loan update failed: " + e.getMessage());
@@ -106,11 +106,11 @@ public class BorrowerController {
 	}
 
 	@PutMapping(path = "/lms/borrower/bookcopies:bookcopies")
-	public ResponseEntity<String> updateBookCopy(@Valid @RequestBody BookCopies bc) throws ClassNotFoundException, SQLException, NotFoundException{
+	public ResponseEntity<BookCopies> updateBookCopy(@Valid @RequestBody BookCopies bc) throws ClassNotFoundException, SQLException, NotFoundException{
 		logger.info("Checking out book: " + bc.getBookCopiesId().getBookId() + "from :" + bc.getBookCopiesId().getBranchId());
 		try{
 			borrowerService.updateBookCopies(bc);
-			ResponseEntity<String> response = new ResponseEntity<String>("Update BookCopies complete!", HttpStatus.NO_CONTENT);
+			ResponseEntity<BookCopies> response = new ResponseEntity<BookCopies>(bc, HttpStatus.NO_CONTENT);
 			return response;
 		} catch(NotFoundException e) {
 			logger.error(e.getMessage());

@@ -1,4 +1,4 @@
-package com.smoothstack.avalanche.lmsborrower;
+package com.smoothstack.avalanche.lms.borrowermsvc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

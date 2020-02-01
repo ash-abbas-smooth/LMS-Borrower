@@ -1,4 +1,4 @@
-package com.smoothstack.avalanche.lmsborrower.dao;
+package com.smoothstack.avalanche.lms.borrowermsvc.dao;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.smoothstack.avalanche.lmsborrower.entity.BookLoans;
-import com.smoothstack.avalanche.lmsborrower.entity.BookLoansId;
+import com.smoothstack.avalanche.lms.borrowermsvc.entity.BookLoans;
+import com.smoothstack.avalanche.lms.borrowermsvc.entity.BookLoansId;
 
 
 @Repository

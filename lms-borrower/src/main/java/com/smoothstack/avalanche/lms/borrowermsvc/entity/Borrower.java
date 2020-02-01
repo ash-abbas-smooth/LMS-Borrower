@@ -1,4 +1,4 @@
-package com.smoothstack.avalanche.lmsborrower.entity;
+package com.smoothstack.avalanche.lms.borrowermsvc.entity;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,12 +14,12 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "tbl_library_branch")
-public class Branch {
+@Table(name = "tbl_borrower")
+public class Borrower {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long cardNo;
 	
 	@Column(name = "name")
 	private String name;
@@ -27,34 +27,32 @@ public class Branch {
 	@Column(name = "address")
 	private String address;
 
-	@OneToMany(mappedBy = "branch", 
+	@Column(name = "phone")
+	private String phone;
+	
+	@OneToMany(mappedBy = "borrower",
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
-	private List<BookLoans> bookLoans;
-	
-	@OneToMany(mappedBy = "branch", 
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
-	private List<BookCopies> bookCopies;
-	
+	private List<BookLoans> loans;
 	/*
 	 * CONSTRUCTORS
 	 */
-	public Branch() {}
-	public Branch(Long id, String name, String address) {
-		this.id = id;
+	public Borrower() {}
+	public Borrower(Long id, String name, String address, String phone) {
+		this.cardNo = id;
 		this.name = name;
 		this.address = address;
+		this.phone = phone;
 	}
 	/*
 	 * GETTERS/SETTERS
 	 */
-	public Long getId() {
-		return id;
+	public Long getCardNo() {
+		return this.cardNo;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCardNo(Long id) {
+		this.cardNo = id;
 	}
 
 	public String getName() {
@@ -73,6 +71,12 @@ public class Branch {
 		this.address = address;
 	}
 	
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	/*
 	 * EQUALS / HASHCODE
 	 */
@@ -85,13 +89,15 @@ public class Branch {
 		if( this == o) return true;
 		if( o == null || getClass() != o.getClass())
 			return false;
-		Branch other = (Branch) o;
-		return Objects.equals(getName(), other.getName()) && Objects.equals(getAddress(), other.getAddress());
+		Borrower other = (Borrower) o;
+		return Objects.equals(getName(), other.getName()) 
+				&& Objects.equals(getAddress(), other.getAddress())
+				&& Objects.equals(getPhone(), other.getPhone());
 	}
 	
 	@Override
 	public int hashCode()
 	{
-		return Objects.hash(name, address);
+		return Objects.hash(name, address, phone);
 	}
 }

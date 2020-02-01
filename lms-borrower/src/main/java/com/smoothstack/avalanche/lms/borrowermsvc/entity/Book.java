@@ -1,4 +1,4 @@
-package com.smoothstack.avalanche.lmsborrower.entity;
+package com.smoothstack.avalanche.lms.borrowermsvc.entity;
 
 import java.util.List;
 import java.util.Objects;

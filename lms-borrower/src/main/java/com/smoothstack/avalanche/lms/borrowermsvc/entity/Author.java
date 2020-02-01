@@ -1,4 +1,4 @@
-package com.smoothstack.avalanche.lmsborrower.entity;
+package com.smoothstack.avalanche.lms.borrowermsvc.entity;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,8 +18,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
-@Table(name = "tbl_genre")
-public class Genre {
+@Table(name = "tbl_author")
+public class Author {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,17 +30,20 @@ public class Genre {
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
-			name = "tbl_book_genres",
-			joinColumns = {@JoinColumn(name = "genre_id")},
+			name = "tbl_book_authors",
+			joinColumns = {@JoinColumn(name = "author_id")},
 			inverseJoinColumns = { @JoinColumn(name = "book_id")}
 			)
 	private List<Book> books;
+	/*
+	 * TODO: implement mappings
+	 */
 	
 	/*
 	 * CONSTRUCTORS
 	 */
-	public Genre() {}
-	public Genre(Long id, String name) {
+	public Author() {}
+	public Author(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
@@ -64,6 +67,9 @@ public class Genre {
 	}
 	
 	/*
+	 * EQUALS / HASHCODE
+	 */
+	/*
 	 * Equals/ HashCode
 	 */
 	@Override
@@ -72,7 +78,7 @@ public class Genre {
 		if( this == o) return true;
 		if( o == null || getClass() != o.getClass())
 			return false;
-		Genre other = (Genre) o;
+		Author other = (Author) o;
 		return Objects.equals(getName(), other.getName());
 	}
 	

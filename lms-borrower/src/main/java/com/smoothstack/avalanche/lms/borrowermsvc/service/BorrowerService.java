@@ -1,4 +1,4 @@
-package com.smoothstack.avalanche.lmsborrower.service;
+package com.smoothstack.avalanche.lms.borrowermsvc.service;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -10,13 +10,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.smoothstack.avalanche.lmsborrower.dao.AuthorDAO;
-import com.smoothstack.avalanche.lmsborrower.dao.BookCopiesDAO;
-import com.smoothstack.avalanche.lmsborrower.dao.BookLoansDAO;
-import com.smoothstack.avalanche.lmsborrower.dao.BranchDAO;
-import com.smoothstack.avalanche.lmsborrower.entity.BookCopies;
-import com.smoothstack.avalanche.lmsborrower.entity.BookLoans;
-import com.smoothstack.avalanche.lmsborrower.entity.Branch;
+import com.smoothstack.avalanche.lms.borrowermsvc.dao.AuthorDAO;
+import com.smoothstack.avalanche.lms.borrowermsvc.dao.BookCopiesDAO;
+import com.smoothstack.avalanche.lms.borrowermsvc.dao.BookLoansDAO;
+import com.smoothstack.avalanche.lms.borrowermsvc.dao.BranchDAO;
+import com.smoothstack.avalanche.lms.borrowermsvc.entity.BookCopies;
+import com.smoothstack.avalanche.lms.borrowermsvc.entity.BookLoans;
+import com.smoothstack.avalanche.lms.borrowermsvc.entity.Branch;
 
 import javassist.NotFoundException;
 

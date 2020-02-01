@@ -1,4 +1,4 @@
-package com.smoothstack.avalanche.lmsborrower.entity;
+package com.smoothstack.avalanche.lms.borrowermsvc.entity;
 
 import java.io.Serializable;
 
@@ -6,23 +6,27 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 
 @Embeddable
-public class BookCopiesId implements Serializable{
+public class BookLoansId implements Serializable{
 	
 	private Long bookId;
 	
 	private Long branchId;
+	
+	private Long cardNo;
 	/*
 	 * CONSTRUCTOR
 	 */
-	public BookCopiesId() {
+	public BookLoansId() {
 		
 	}
-	public BookCopiesId(Long bookId, Long branchId) {
+	public BookLoansId(Long bookId, Long branchId, Long cardNo) {
+		super();
 		this.bookId = bookId;
 		this.branchId = branchId;
+		this.cardNo = cardNo;
 	}
 	/*
-	 * GETTERS / SETTERS
+	 * GETTERS/SETTERS
 	 */
 	public Long getBookId() {
 		return bookId;
@@ -36,8 +40,14 @@ public class BookCopiesId implements Serializable{
 	public void setBranchId(Long branchId) {
 		this.branchId = branchId;
 	}
+	public Long getCardNo() {
+		return cardNo;
+	}
+	public void setCardNo(Long cardNo) {
+		this.cardNo = cardNo;
+	}
 	/*
-	 * EQUALS/HASHCODE
+	 * EQUALS/HASH
 	 */
 	@Override
 	public int hashCode() {
@@ -45,6 +55,7 @@ public class BookCopiesId implements Serializable{
 		int result = 1;
 		result = prime * result + ((bookId == null) ? 0 : bookId.hashCode());
 		result = prime * result + ((branchId == null) ? 0 : branchId.hashCode());
+		result = prime * result + ((cardNo == null) ? 0 : cardNo.hashCode());
 		return result;
 	}
 	@Override
@@ -55,7 +66,7 @@ public class BookCopiesId implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BookCopiesId other = (BookCopiesId) obj;
+		BookLoansId other = (BookLoansId) obj;
 		if (bookId == null) {
 			if (other.bookId != null)
 				return false;
@@ -66,6 +77,12 @@ public class BookCopiesId implements Serializable{
 				return false;
 		} else if (!branchId.equals(other.branchId))
 			return false;
+		if (cardNo == null) {
+			if (other.cardNo != null)
+				return false;
+		} else if (!cardNo.equals(other.cardNo))
+			return false;
 		return true;
 	}
+	
 }
