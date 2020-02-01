@@ -8,8 +8,8 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.smoothstack.avalanche.lms.borrowermsv</groupId>
-	<artifactId>borrowermsv</artifactId>
+	<groupId>com.smoothstack.avalanche.lms.borrowermsvc</groupId>
+	<artifactId>borrowermsvc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>lms-borrower</name>
 	<description>Borrower microservice for LMS</description>

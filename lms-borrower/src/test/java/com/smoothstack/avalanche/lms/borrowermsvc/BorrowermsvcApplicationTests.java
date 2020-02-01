@@ -1,10 +1,10 @@
-package com.smoothstack.avalanche.lmsborrower;
+package com.smoothstack.avalanche.lms.borrowermsvc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LmsBorrowerApplicationTests {
+class BorrowermsvcApplicationTests {
 
 	@Test
 	void contextLoads() {
