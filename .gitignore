@@ -1,7 +1,7 @@
 #Ignore Everything
 /*
 
-!/lms-borrower/src/*
+!src
 !data.sql
 !schema.sql
 !pom.xml
