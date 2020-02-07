@@ -6,3 +6,4 @@
 !schema.sql
 !pom.xml
 !.gitignore
+!*.template
